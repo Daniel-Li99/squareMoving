@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+<style>
+#container {
+  width: 400px;
+  height: 400px;
+  position: relative;
+  background: yellow;
+}
+#animate {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  background-color: red;
+}
+
+button[disabled] {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+</style>
+<body>
+
+<button id="startBtn" onclick="myMove()">Start Moving</button>
+<button id="stopBtn" onclick="myStop()" disabled>Stop Moving</button>
+<button id="resetBtn" onclick="myReset()" disabled>Reset</button>
+
+<div id="container" style="margin-top:20px;">
+  <div id="animate"></div>
+</div>
+
+<script>
+let id;
+let moving;
+let x = 0;
+let y = 0;
+function myMove() {
+  const elem = document.getElementById("animate");   
+  id = setInterval(frame, 1);  
+}
+
+function frame() {
+  const elem = document.getElementById("animate"); 
+  document.getElementById("startBtn").disabled = true;    
+  document.getElementById("stopBtn").disabled = false;
+  if (y == 0 && x == 0 && moving) {
+      clearInterval(id);
+      moving = false;
+      document.getElementById("startBtn").disabled = false;
+      document.getElementById("stopBtn").disabled = true;
+      document.getElementById("resetBtn").disabled = true;
+    } else if (x == 0 && y < 350 ) {
+      y++;
+      elem.style.top = y + "px";
+      moving = true;
+    } else if (y == 350 && x < 350){
+      x++; 
+      elem.style.left = x + "px"; 
+      
+    } else if (x == 350 && y > 0){
+      y--;
+      elem.style.top = y + "px";
+      
+    } else if (y == 0 && x > 0){
+      x--;
+      elem.style.left = x + "px";
+    } 
+    }
+
+function myStop() {
+  const elem = document.getElementById("animate");
+  if (moving) {
+    clearInterval(id);
+    moving = false;
+    document.getElementById("stopBtn").textContent = "Continue";
+    document.getElementById("resetBtn").disabled = false;
+  } else {
+    moving = true;
+    id = setInterval(frame, 1);
+    document.getElementById("stopBtn").textContent = "Stop Moving";
+    document.getElementById("resetBtn").disabled = true;
+  }
+}
+
+function myReset() {
+  document.getElementById("startBtn").disabled = false;
+  document.getElementById("stopBtn").disabled = true;
+  document.getElementById("resetBtn").disabled = true;
+  document.getElementById("stopBtn").textContent = "Stop Moving";
+  x = 0;
+  y = 0;
+  const elem = document.getElementById("animate");
+  elem.style.top = y + "px";
+  elem.style.left = x + "px";
+}
+</script>
+</body>
+</html>
