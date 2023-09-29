@@ -7,6 +7,7 @@
   position: relative;
   background: yellow;
 }
+
 #animate {
   width: 50px;
   height: 50px;
@@ -18,7 +19,6 @@ button[disabled] {
   background-color: #ccc;
   cursor: not-allowed;
 }
-
 </style>
 <body>
 
@@ -35,6 +35,7 @@ let id;
 let moving;
 let x = 0;
 let y = 0;
+
 function myMove() {
   const elem = document.getElementById("animate");   
   id = setInterval(frame, 1);  
@@ -45,28 +46,26 @@ function frame() {
   document.getElementById("startBtn").disabled = true;    
   document.getElementById("stopBtn").disabled = false;
   if (y == 0 && x == 0 && moving) {
-      clearInterval(id);
-      moving = false;
-      document.getElementById("startBtn").disabled = false;
-      document.getElementById("stopBtn").disabled = true;
-      document.getElementById("resetBtn").disabled = true;
-    } else if (x == 0 && y < 350 ) {
+    clearInterval(id);
+    moving = false;
+    document.getElementById("startBtn").disabled = false;
+    document.getElementById("stopBtn").disabled = true;
+    document.getElementById("resetBtn").disabled = true;
+  } else if (x == 0 && y < 350 ) {
       y++;
       elem.style.top = y + "px";
       moving = true;
     } else if (y == 350 && x < 350){
       x++; 
       elem.style.left = x + "px"; 
-      
     } else if (x == 350 && y > 0){
       y--;
       elem.style.top = y + "px";
-      
     } else if (y == 0 && x > 0){
       x--;
       elem.style.left = x + "px";
     } 
-    }
+}
 
 function myStop() {
   const elem = document.getElementById("animate");
@@ -80,7 +79,7 @@ function myStop() {
     id = setInterval(frame, 1);
     document.getElementById("stopBtn").textContent = "Stop Moving";
     document.getElementById("resetBtn").disabled = true;
-  }
+    }
 }
 
 function myReset() {
@@ -88,6 +87,7 @@ function myReset() {
   document.getElementById("stopBtn").disabled = true;
   document.getElementById("resetBtn").disabled = true;
   document.getElementById("stopBtn").textContent = "Stop Moving";
+  
   x = 0;
   y = 0;
   const elem = document.getElementById("animate");
@@ -95,5 +95,6 @@ function myReset() {
   elem.style.left = x + "px";
 }
 </script>
+
 </body>
 </html>
